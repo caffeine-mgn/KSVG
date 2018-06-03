@@ -1,0 +1,57 @@
+apply plugin: 'kotlin-platform-js'
+apply plugin: 'maven-publish'
+
+task sourcesJar(type: Jar) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+publishing {
+    publications {
+
+        mavenJava(MavenPublication) {
+            groupId "org.tlsys"
+            artifactId 'svg'
+            version svg_version
+            from components.java
+            artifact sourcesJar
+
+            pom.withXml {
+                asNode().appendNode('description',
+                        'SVG library for kotlin. https://github.com/caffeine-mgn/KSVG')
+            }
+        }
+    }
+    repositories {
+        maven {
+            url System.getenv("REPO_DIR")
+        }
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile "org.jetbrains.kotlin:kotlin-stdlib-js:$kotlin_version"
+}
+def out = "${buildDir}/js"
+compileKotlin2Js {
+    kotlinOptions.sourceMap = true
+    kotlinOptions.outputFile = "$out/ksvg.js"
+    kotlinOptions.suppressWarnings = true
+    kotlinOptions.verbose = true
+    kotlinOptions.main = "call"
+}
+
+buildscript {
+    ext.kotlin_version = '1.2.41'
+    ext.svg_version = '1.0.0'
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
