@@ -11,7 +11,7 @@ publishing {
 
         mavenJava(MavenPublication) {
             groupId "org.tlsys"
-            artifactId 'svg'
+            artifactId 'ksvg'
             version svg_version
             from components.java
             artifact sourcesJar
