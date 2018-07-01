@@ -9,6 +9,11 @@ inline fun SVGPath(noinline f: PathBuilder.() -> Unit): SVGPathElement {
     return v.invoke(f)
 }
 
+inline fun SVGPathElement.data(data: String): SVGPathElement {
+    setAttribute("d", data)
+    return this
+}
+
 class PathBuilder {
     var body = ""
     var cmd = ""
