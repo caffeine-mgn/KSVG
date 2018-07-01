@@ -2,7 +2,9 @@ package org.tlsys.svg
 
 import org.w3c.dom.Document
 import org.w3c.dom.css.CSSStyleDeclaration
-import org.w3c.dom.svg.*
+import org.w3c.dom.svg.SVGElement
+import org.w3c.dom.svg.SVGGradientElement
+import org.w3c.dom.svg.SVGGraphicsElement
 
 
 var CSSStyleDeclaration.fill: String?
@@ -24,8 +26,9 @@ var CSSStyleDeclaration.dominantBaseline: String?
     }
 
 
-inline fun SVGElement.move(x: Float, y: Float) {
+inline fun <T : SVGElement> T.move(x: Float, y: Float): T {
     setAttribute("transform", "translate($x $y)")
+    return this
 }
 
 inline val <T : SVGGraphicsElement> T.screenX: Float
@@ -45,49 +48,53 @@ val <T : SVGElement> T.gid: String
         return id
     }
 
-inline fun <T : SVGElement> T.fill(value: String?) {
+inline fun <T : SVGElement> T.fill(value: String?): T {
     if (value == null)
         removeAttribute("fill")
     else
         setAttribute("fill", value)
+    return this
 }
 
-inline fun <T : SVGElement, V : SVGGradientElement> T.fill(value: V) {
-    fill("url(#${value.gid})")
-}
+inline fun <T : SVGElement, V : SVGGradientElement> T.fill(value: V) = fill("url(#${value.gid})")
 
-inline fun <T : SVGElement> T.stroke(value: String?) {
+inline fun <T : SVGElement> T.stroke(value: String?): T {
     if (value == null)
         removeAttribute("stroke")
     else
         setAttribute("stroke", value)
+    return this
 }
 
-inline fun <T : SVGElement> T.strokeWidth(value: Float?) {
+inline fun <T : SVGElement> T.strokeWidth(value: Float?): T {
     if (value == null)
         removeAttribute("stroke-width")
     else
         setAttribute("stroke-width", value.unsafeCast<String>())
+    return this
 }
 
 
-inline fun <T : SVGElement> T.strokeLinejoin(value: String?) {
+inline fun <T : SVGElement> T.strokeLinejoin(value: String?): T {
     if (value == null)
         removeAttribute("stroke-linejoin")
     else
         setAttribute("stroke-linejoin", value)
+    return this
 }
 
-inline fun <T : SVGElement> T.strokeLinecap(value: String?) {
+inline fun <T : SVGElement> T.strokeLinecap(value: String?): T {
     if (value == null)
         removeAttribute("stroke-linecap")
     else
         setAttribute("stroke-linecap", value)
+    return this
 }
 
-inline fun <T : SVGElement> T.strokeMiterlimit(value: Float?) {
+inline fun <T : SVGElement> T.strokeMiterlimit(value: Float?): T {
     if (value == null)
         removeAttribute("stroke-miterlimit")
     else
         setAttribute("stroke-miterlimit", value.unsafeCast<String>())
+    return this
 }
