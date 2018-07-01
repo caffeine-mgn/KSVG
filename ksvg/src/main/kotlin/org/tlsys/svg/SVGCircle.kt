@@ -22,3 +22,8 @@ inline var SVGCircleElement._cy: Float
     set(it) {
         cy.baseVal.value = it
     }
+
+inline fun SVGCircleElement.radius(value: Float): SVGCircleElement {
+    _raduis = value
+    return this
+}
