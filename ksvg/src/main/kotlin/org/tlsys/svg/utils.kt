@@ -1,11 +1,15 @@
 package org.tlsys.svg
 
+import org.w3c.dom.DOMImplementation
 import org.w3c.dom.Document
+import org.w3c.dom.Window
 import org.w3c.dom.css.CSSStyleDeclaration
 import org.w3c.dom.svg.SVGElement
 import org.w3c.dom.svg.SVGGradientElement
 import org.w3c.dom.svg.SVGGraphicsElement
 
+val Window.isSVGSupport: Boolean
+    get() = document.implementation.asDynamic().hasFeature("http://www.w3.org/TR/SVG11/feature#Image", "1.1")
 
 var CSSStyleDeclaration.fill: String?
     inline get() = asDynamic().fill.unsafeCast<String?>()

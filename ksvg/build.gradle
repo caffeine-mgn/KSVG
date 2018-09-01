@@ -46,8 +46,8 @@ compileKotlin2Js {
 }
 
 buildscript {
-    ext.kotlin_version = '1.2.41'
-    ext.svg_version = '1.0.4'
+    ext.kotlin_version = '1.2.61'
+    ext.svg_version = '1.0.5'
     repositories {
         mavenCentral()
     }
